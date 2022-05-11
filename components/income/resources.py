@@ -1,10 +1,12 @@
 from flask import Blueprint, request
 from components.income.models import Incomes
+from components.income.response import IncomeResponse
 from components.income.schemas import (
     IncomeSchemaForm,
     IncomeSchemaResponse
 )
 from components.income.store import IncomeStore
+from marshmallow import ValidationError
 
 api_incomes = Blueprint('incomes', __name__, url_prefix='/incomes')
 
@@ -14,13 +16,17 @@ api_incomes = Blueprint('incomes', __name__, url_prefix='/incomes')
 def get_list():
     incomes = Incomes.query.all()
     result = IncomeSchemaResponse(many=True).dump(incomes)
-    return {'incomes': result}
+    return IncomeResponse.success(result, 200)
 
 
 # + POST /incomes/
 @api_incomes.route('/', methods=['POST'])
 def create():
-    form_data = IncomeSchemaForm().load(request.json)
+    try:
+        form_data = IncomeSchemaForm().load(request.json)
+    except ValidationError as error:
+        return IncomeResponse.error(error.messages, 400)
+
     new_income = IncomeStore.create(form_data)
     return {'income': f"{new_income}"}, 201
 
