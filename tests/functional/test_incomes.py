@@ -4,5 +4,5 @@ def test_incomes_list(client):
     When:
     Then
     """
-    response = client.get("v1/incomes")
+    response = client.get("v1/incomes/")
     assert response.status_code == 200

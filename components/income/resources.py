@@ -9,7 +9,7 @@ from components.income.store import IncomeStore
 api_incomes = Blueprint('incomes', __name__, url_prefix='/incomes')
 
 
-# + GET /incomes
+# + GET /incomes/
 @api_incomes.route('/', methods=['GET'])
 def get_list():
     incomes = Incomes.query.all()
@@ -17,7 +17,7 @@ def get_list():
     return {'incomes': result}
 
 
-# + POST /incomes
+# + POST /incomes/
 @api_incomes.route('/', methods=['POST'])
 def create():
     form_data = IncomeSchemaForm().load(request.json)
