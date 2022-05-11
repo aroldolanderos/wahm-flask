@@ -15,8 +15,8 @@ class IncomeStore:
         pass
 
     @staticmethod
-    def find_all(data):
-        pass
+    def find_all():
+        return Incomes.query.all()
 
     @staticmethod
     def find_by_id(id):

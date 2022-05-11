@@ -1,5 +1,4 @@
 from flask import Blueprint, request
-from components.income.models import Incomes
 from components.income.response import IncomeResponse
 from components.income.schemas import (
     IncomeSchemaForm,
@@ -14,7 +13,7 @@ api_incomes = Blueprint('incomes', __name__, url_prefix='/incomes')
 # + GET /incomes/
 @api_incomes.route('/', methods=['GET'])
 def get_list():
-    incomes = Incomes.query.all()
+    incomes = IncomeStore.find_all()
     result = IncomeSchemaResponse(many=True).dump(incomes)
     return IncomeResponse.success(result, 200)
 
