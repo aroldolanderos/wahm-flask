@@ -1,7 +1,7 @@
 from marshmallow import Schema, fields
 
 
-class IncomeSchemaForm(Schema):
+class IncomeSchemaValidate(Schema):
     description = fields.String(
         required=True,
         error_messages={

@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from components.income.response import IncomeResponse
 from components.income.schemas import (
-    IncomeSchemaForm,
+    IncomeSchemaValidate,
     IncomeSchemaResponse
 )
 from components.income.store import IncomeStore
@@ -22,7 +22,7 @@ def get_list():
 @api_incomes.route('/', methods=['POST'])
 def create():
     try:
-        form_data = IncomeSchemaForm().load(request.json)
+        form_data = IncomeSchemaValidate().load(request.json)
     except ValidationError as error:
         return IncomeResponse.error(error.messages, 400)
 
