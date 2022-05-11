@@ -1,3 +1,41 @@
+# What And How Much ? (WAHM)
+Project to keep records of income and expenditure It is an example project with
+the purpose of learning how to use the different features of the flask framework
+
+> Previously you should create a virtual environment for python 3, this example
+> more precisely uses version 3.8
+
+## Install dependencies
+``` python
+$ pip install -r requirements.txt
+```
+
+## Install postgres using docker
+Create volume
+``` sh
+$ docker volume create postgres_db_data
+```
+
+Create container from alpine postgres image
+``` sh
+$ docker run -d  --name postgres_local -e POSTGRES_PASSWORD=1234 -p 5432:5432 -v postgres_db_data:/var/lib/postgresql/data postgres:alpine
+```
+
+## Set enviroment variables
+Duplicate example .env files
+``` sh
+$ cp .env.example .env
+$ cp .flaskenv.example .flaskenv
+```
+
+Complete the necessary values for each file, mainly for the database
+``` env
+SQLALCHEMY_DATABASE_URI_DEV='postgresql://postgres:1234@localhost:5432/<your_db_name>'
+```
+
+
+
+
 ## Migrations
 
 Create migration repository, this will add a migrations folder 
@@ -35,3 +73,8 @@ $ flask db --help
 ```
 
 All documentation of Flask migrations -> [here](https://flask-migrate.readthedocs.io/en/latest/)
+
+## Run app on Local
+``` python
+$ flask run
+```
