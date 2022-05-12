@@ -1,11 +1,11 @@
-from components.income.models import Incomes
+from components.income.models import Income
 from database import db
 
 
 class IncomeStore:
     @staticmethod
     def create(data):
-        new_income = Incomes(**data)
+        new_income = Income(**data)
         db.session.add(new_income)
         db.session.commit()
         return new_income
@@ -16,7 +16,7 @@ class IncomeStore:
 
     @staticmethod
     def find_all():
-        return Incomes.query.all()
+        return Income.query.all()
 
     @staticmethod
     def find_by_id(id):
